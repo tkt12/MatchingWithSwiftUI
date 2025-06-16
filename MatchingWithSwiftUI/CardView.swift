@@ -29,6 +29,7 @@ struct CardView: View {
         .offset(offset)
         .gesture(gesture)
         .scaleEffect(scale)
+        .rotationEffect(.degrees(angle))
     }
 }
 
@@ -79,6 +80,11 @@ extension CardView {
     private var scale: CGFloat {
         return max(1.0 - (abs(offset.width) / screenWidth), 0.75)
     }
+    
+    private var angle: Double {
+        return (offset.width / screenWidth) * 10.0
+    }
+    
     private var gesture: some Gesture {
         DragGesture()
             .onChanged{ value in
