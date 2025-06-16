@@ -35,6 +35,9 @@ struct CardView: View {
         .gesture(gesture)
         .scaleEffect(scale)
         .rotationEffect(.degrees(angle))
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NOPEACTION"), object: nil)) { data in
+            print("ListViewModelからの通知を受信しました。 \(data)")
+        }
     }
 }
 

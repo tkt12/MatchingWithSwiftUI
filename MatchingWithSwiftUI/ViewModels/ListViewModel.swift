@@ -26,4 +26,10 @@ class ListViewModel {
             User.MOCK_USER7,
         ]
     }
+    
+    func nopeButtonTapped() {
+        NotificationCenter.default.post(name: Notification.Name("NOPEACTION"), object: nil, userInfo: [
+            "id": "1"
+        ])
+    }
 }
