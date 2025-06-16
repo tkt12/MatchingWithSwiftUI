@@ -29,7 +29,7 @@ extension ListView {
     
     private var cards: some View {
         ZStack {
-            ForEach(0..<1) { _ in
+            ForEach(0..<5) { _ in
                 CardView()
             }
         }
