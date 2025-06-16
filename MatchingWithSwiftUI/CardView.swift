@@ -10,7 +10,7 @@ import SwiftUI
 struct CardView: View {
     
     @State private var offset: CGSize = .zero
-    let user = User.MOCK_USER6
+    let user: User
     
     var body: some View {
         ZStack(alignment: .bottom) {
