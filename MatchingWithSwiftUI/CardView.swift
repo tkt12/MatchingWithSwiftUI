@@ -37,6 +37,14 @@ struct CardView: View {
         .rotationEffect(.degrees(angle))
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("NOPEACTION"), object: nil)) { data in
             print("ListViewModelからの通知を受信しました。 \(data)")
+            guard
+                let info = data.userInfo,
+                let id = info["id"] as? String
+            else { return }
+            
+            if id == user.id {
+                removeCard(isLiked: false)
+            }
         }
     }
 }
@@ -139,6 +147,12 @@ extension CardView {
         return (offset.width / screenWidth) * 4.0
     }
     
+    private func removeCard(isLiked: Bool, height: CGFloat = 0.0) {
+        withAnimation(.smooth) {
+            offset = CGSize(width: isLiked ? screenWidth  * 1.5: -screenWidth * 1.5, height: height)
+        }
+    }
+    
     private var gesture: some Gesture {
         DragGesture()
             .onChanged{ value in
@@ -158,9 +172,7 @@ extension CardView {
                 let screenWidth = window.screen.bounds.width
                 
                 if (abs(width) > (screenWidth / 4)) {
-                    withAnimation(.smooth) {
-                        offset = CGSize(width: width > 0 ? screenWidth  * 1.5: -screenWidth * 1.5, height: height)
-                    }
+                   removeCard(isLiked: width > 0, height: height)
                 } else {
                     withAnimation(.smooth) {
                         offset = .zero

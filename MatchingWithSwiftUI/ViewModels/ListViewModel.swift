@@ -11,6 +11,8 @@ class ListViewModel {
     
     var users = [User]()
     
+    private var currentIndex = 0
+    
     init() {
         self.users = getMockUsers()
     }
@@ -28,8 +30,12 @@ class ListViewModel {
     }
     
     func nopeButtonTapped() {
+        if currentIndex >= users.count { return }
+        
         NotificationCenter.default.post(name: Notification.Name("NOPEACTION"), object: nil, userInfo: [
-            "id": "1"
+            "id": users[currentIndex].id
         ])
+        
+        currentIndex += 1
     }
 }
