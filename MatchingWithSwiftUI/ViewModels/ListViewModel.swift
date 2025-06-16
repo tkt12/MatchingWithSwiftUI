@@ -38,4 +38,14 @@ class ListViewModel {
         
         currentIndex += 1
     }
+    
+    func likeButtonTapped() {
+        if currentIndex >= users.count { return }
+        
+        NotificationCenter.default.post(name: Notification.Name("LIKEACTION"), object: nil, userInfo: [
+            "id": users[currentIndex].id
+        ])
+        
+        currentIndex += 1
+    }
 }

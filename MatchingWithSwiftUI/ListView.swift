@@ -65,7 +65,7 @@ extension ListView {
                     }
             }
             Button {
-                print("ボタンがタップされました")
+                viewModel.likeButtonTapped()
             } label: {
                 Image(systemName: "heart")
                     .font(.system(size: 26, weight: .bold))

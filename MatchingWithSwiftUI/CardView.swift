@@ -46,6 +46,17 @@ struct CardView: View {
                 removeCard(isLiked: false)
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("LIKEACTION"), object: nil)) { data in
+            print("ListViewModelからの通知を受信しました。 \(data)")
+            guard
+                let info = data.userInfo,
+                let id = info["id"] as? String
+            else { return }
+            
+            if id == user.id {
+                removeCard(isLiked: true)
+            }
+        }
     }
 }
 
