@@ -11,6 +11,7 @@ struct CardView: View {
     
     @State private var offset: CGSize = .zero
     let user: User
+    let adjustIndex: (Bool) -> Void
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -173,12 +174,16 @@ extension CardView {
         withAnimation(.smooth) {
             offset = CGSize(width: isLiked ? screenWidth  * 1.5: -screenWidth * 1.5, height: height)
         }
+        
+        adjustIndex(false)
     }
     
     private func resetaCard() {
         withAnimation(.smooth) {
             offset = .zero
         }
+        
+        adjustIndex(true)
     }
     
     private var gesture: some Gesture {

@@ -11,7 +11,11 @@ class ListViewModel {
     
     var users = [User]()
     
-    private var currentIndex = 0
+    private var currentIndex = 0 {
+        didSet {
+            print("currentIndex is \(currentIndex)")
+        }
+    }
     
     init() {
         self.users = getMockUsers()
@@ -29,14 +33,20 @@ class ListViewModel {
         ]
     }
     
+    func adjustIndex(isRedo: Bool) {
+        if isRedo {
+            currentIndex -= 1
+        } else {
+            currentIndex += 1
+        }
+    }
+    
     func nopeButtonTapped() {
         if currentIndex >= users.count { return }
         
         NotificationCenter.default.post(name: Notification.Name("NOPEACTION"), object: nil, userInfo: [
             "id": users[currentIndex].id
         ])
-        
-        currentIndex += 1
     }
     
     func likeButtonTapped() {
@@ -45,8 +55,6 @@ class ListViewModel {
         NotificationCenter.default.post(name: Notification.Name("LIKEACTION"), object: nil, userInfo: [
             "id": users[currentIndex].id
         ])
-        
-        currentIndex += 1
     }
     
     func redoButtonTapped() {
@@ -55,7 +63,5 @@ class ListViewModel {
         NotificationCenter.default.post(name: Notification.Name("REDOACTION"), object: nil, userInfo: [
             "id": users[currentIndex - 1].id
         ])
-        
-        currentIndex -= 1
     }
 }
