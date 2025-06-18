@@ -69,6 +69,10 @@ struct CardView: View {
                 resetaCard()
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ACTIONFROMBUTTON"),
+            object: nil)) { data in
+            receiveHandler(data: data)
+        }
     }
 }
 
@@ -210,5 +214,23 @@ extension CardView {
                     resetaCard()
                 }
             }
+    }
+    private func receiveHandler(data: NotificationCenter.Publisher.Output) {
+        guard
+            let info = data.userInfo,
+            let id = info["id"] as? String,
+            let action = info["action"] as? Action
+        else { return }
+        
+        if id == user.id {
+            switch action {
+            case .nope:
+                removeCard(isLiked: false)
+            case .redo:
+                resetaCard()
+            case .like:
+                removeCard(isLiked: true)
+            }
+        }
     }
 }

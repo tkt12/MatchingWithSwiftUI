@@ -64,4 +64,18 @@ class ListViewModel {
             "id": users[currentIndex - 1].id
         ])
     }
+    
+    func tappedhandler(action: Action) {
+        switch action {
+        case .nope, .like:
+            if currentIndex >= users.count { return }
+        case .redo:
+            if currentIndex <= 0 { return }
+        }
+        
+        NotificationCenter.default.post(name: Notification.Name("ACTIONFROMBUTTON"), object: nil, userInfo: [
+            "id": action == .redo ? users[currentIndex - 1].id : users[currentIndex].id,
+            "action": action
+        ])
+    }
 }
