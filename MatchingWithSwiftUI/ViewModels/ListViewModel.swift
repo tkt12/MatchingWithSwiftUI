@@ -2,7 +2,7 @@
 //  ListViewModel.swift
 //  MatchingWithSwiftUI
 //
-//  Created by 木下喬仁 on 2025/06/16.
+//  Created by tkt on 2025/06/16.
 //
 
 import Foundation
@@ -47,5 +47,15 @@ class ListViewModel {
         ])
         
         currentIndex += 1
+    }
+    
+    func redoButtonTapped() {
+        if currentIndex <= 0 { return }
+        
+        NotificationCenter.default.post(name: Notification.Name("REDOACTION"), object: nil, userInfo: [
+            "id": users[currentIndex - 1].id
+        ])
+        
+        currentIndex -= 1
     }
 }

@@ -2,7 +2,7 @@
 //  CardView.swift
 //  MatchingWithSwiftUI
 //
-//  Created by 木下喬仁 on 2025/06/11.
+//  Created by tkt on 2025/06/11.
 //
 
 import SwiftUI
@@ -55,6 +55,17 @@ struct CardView: View {
             
             if id == user.id {
                 removeCard(isLiked: true)
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("REDOACTION"), object: nil)) { data in
+            print("ListViewModelからの通知を受信しました。 \(data)")
+            guard
+                let info = data.userInfo,
+                let id = info["id"] as? String
+            else { return }
+            
+            if id == user.id {
+                resetaCard()
             }
         }
     }
@@ -164,6 +175,12 @@ extension CardView {
         }
     }
     
+    private func resetaCard() {
+        withAnimation(.smooth) {
+            offset = .zero
+        }
+    }
+    
     private var gesture: some Gesture {
         DragGesture()
             .onChanged{ value in
@@ -185,9 +202,7 @@ extension CardView {
                 if (abs(width) > (screenWidth / 4)) {
                    removeCard(isLiked: width > 0, height: height)
                 } else {
-                    withAnimation(.smooth) {
-                        offset = .zero
-                    }
+                    resetaCard()
                 }
             }
     }

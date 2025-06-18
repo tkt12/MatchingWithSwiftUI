@@ -2,7 +2,7 @@
 //  ListView.swift
 //  MatchingWithSwiftUI
 //
-//  Created by 木下喬仁 on 2025/06/08.
+//  Created by tkt on 2025/06/08.
 //
 
 import SwiftUI
@@ -53,7 +53,7 @@ extension ListView {
                     }
             }
             Button {
-                print("ボタンがタップされました")
+                viewModel.redoButtonTapped()
             } label: {
                 Image(systemName: "arrow.counterclockwise")
                     .font(.system(size: 26, weight: .bold))

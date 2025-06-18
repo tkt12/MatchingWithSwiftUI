@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  MatchingWithSwiftUI
 //
-//  Created by 木下喬仁 on 2025/06/07.
+//  Created by tkt on 2025/06/07.
 //
 
 import SwiftUI
