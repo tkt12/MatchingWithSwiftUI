@@ -11,11 +11,7 @@ class ListViewModel {
     
     var users = [User]()
     
-    private var currentIndex = 0 {
-        didSet {
-            print("currentIndex is \(currentIndex)")
-        }
-    }
+    private var currentIndex = 0
     
     init() {
         self.users = getMockUsers()
